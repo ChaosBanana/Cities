@@ -40,8 +40,7 @@ const CitiesTable = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.rows && props.rows.map(row => {
-            console.log(row)
+          {props.rows ? props.rows.map(row => {
             return (
               <TableRow key={row.City}>
                 <TableCell>{row['#']}</TableCell>
@@ -56,7 +55,7 @@ const CitiesTable = (props) => {
                 <TableCell numeric>{row['All\nStructures']}</TableCell>
               </TableRow>
             );
-          })}
+          }) : <TableRow><TableCell>Loading...</TableCell></TableRow>}
         </TableBody>
       </Table>
     </Paper>

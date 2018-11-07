@@ -12,16 +12,32 @@ class Cities extends Component {
       header: true,
       download: true,
       skipEmptyLines: true,
-      // Here this is also available. So we can call our custom class method
-      complete: this.updateData
+      complete: this.updateData,
     });
   }
 
   updateData = (result) => {
     const rows = result.data;
-    // Here this is available and we can call this.setState (since it's binded in the constructor)
-    this.setState({ rows: rows }); // or shorter ES syntax: this.setState({ data });
-    //console.log(rows);
+    const columnSort = this.props.location.pathname.split('/')[1];
+    const columns = Object.keys(rows[0]);
+
+    let sortBy = null;
+    for (let i = 0; i < columns.length; i++) {
+      if (columns[i].toLowerCase().replace(/\s/g, "") === columnSort.replace(/\s/g, "")) {
+        sortBy = columns[i];
+        break;
+      }
+    }
+
+    if (sortBy !== null) {
+      rows.sort((a, b) =>
+        (isNaN(a[sortBy]) || isNaN(b[sortBy])) ?
+          a[sortBy].localeCompare(b[sortBy]) :
+          a[sortBy] - b[sortBy]);
+
+    }
+
+    this.setState({ rows: rows });
   }
 
   render = () => {
