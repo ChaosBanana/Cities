@@ -23,7 +23,7 @@ class Cities extends Component {
 
     let sortBy = null;
     for (let i = 0; i < columns.length; i++) {
-      if (columns[i].toLowerCase().replace(/\s/g, "") === columnSort.replace(/\s/g, "")) {
+      if (columns[i].toLowerCase().replace(/\s/g, "") === columnSort.toLowerCase().replace(/\s/g, "")) {
         sortBy = columns[i];
         break;
       }
